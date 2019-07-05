@@ -1,0 +1,28 @@
+##
+## Generated using https://github.com/bpradipt/generator-kubegen.git
+##
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        name: sample-app
+    name: sample-app
+    namespace: default
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: sample-app
+    template:
+        metadata:
+            labels:
+                app: sample-app
+        spec:
+            containers:
+                -
+                    name: sample-app
+                    image: 'busybox'
+                    imagePullPolicy: IfNotPresent
+                    command:
+                        - sleep
+                        - "10000"
