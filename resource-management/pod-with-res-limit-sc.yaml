@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-limit-example
+  namespace: default
+spec:
+  securityContext:
+    runAsUser: 1000
+  containers:
+  - name: res-limit-example
+    image: polinux/stress
+    resources:
+      limits:
+        memory: "512M"
+        cpu: "500m"
+      requests:
+        memory: "256M"
+        cpu: "100m"
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "600M", "--vm-hang", "1"]

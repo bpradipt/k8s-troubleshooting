@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: guaranteed-qos
+  namespace: default
+spec:
+  containers:
+  - name: guaranteed-qos
+    image: polinux/stress
+    resources:
+#      limits:
+#        memory: "512M"
+#        cpu: "500m"
+      requests:
+        memory: "512M"
+        cpu: "1000m"
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "400M", "--vm-hang", "1"]

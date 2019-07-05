@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: res-req-example
+  namespace: default
+spec:
+  securityContext:
+    runAsUser: 1000
+  containers:
+  - name: res-req-example
+    image: polinux/stress
+    resources:
+      requests:
+        memory: "512M"
+        cpu: "1"
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "400M", "--vm-hang", "1"]
