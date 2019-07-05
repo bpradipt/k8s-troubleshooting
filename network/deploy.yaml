@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: network-multitool-deploy
+  namespace: kube-system
+  labels:
+    app: network-multitool-deploy
+spec:
+  template:
+    metadata:
+      labels:
+        app: network-multitool-deploy
+    spec:
+      containers:
+      - name: network-multitool-deploy
+        image: praqma/network-multitool
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "50Mi"
+          limits:
+            cpu: "50m"
+            memory: "50Mi"
+        securityContext:
+          runAsUser: 0
