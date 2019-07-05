@@ -1,0 +1,58 @@
+##
+## Generated using https://github.com/bpradipt/generator-kubegen.git
+##
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        name: sample-deploy
+    name: sample-deploy
+    namespace: default
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: sample-deploy
+    template:
+        metadata:
+            labels:
+                app: sample-deploy
+        spec:
+            securityContext:
+                runAsUser: 1000
+            containers:
+                -
+                    name: sample-deploy
+                    image: 'bpradipt/stress-ppc64le'
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: 50M
+                        limits:
+                            memory: 60M
+                    command:
+                        - stress
+                    args:
+                        - '--vm'
+                        - '1'
+                        - '--vm-bytes'
+                        - 50M
+                        - '--vm-hang'
+                        - '1'
+            affinity:
+                nodeAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                        nodeSelectorTerms:
+                        - matchExpressions:
+                            - key: beta.kubernetes.io/arch
+                              operator: In
+                              values:
+                              - ppc64le
+                    preferredDuringSchedulingIgnoredDuringExecution:
+                    - weight: 1
+                    preference:
+                        matchExpressions:
+                        - key: disktype
+                          operator: In
+                          values:
+                          - ssd
